@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "lib": ["es2016"],
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "esModuleInterop": false
+  },
+  "include": ["src/**/*.ts"]
+}

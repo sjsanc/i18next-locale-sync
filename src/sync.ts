@@ -1,18 +1,36 @@
 const fs = require("fs");
-const path = require("path");
 const { stringify } = require("csv-stringify");
 
-const args = process.argv;
+export const hello = () => {
+  return "hello";
+};
 
-const masterFilePath = args[2];
-const masterFileData = JSON.parse(fs.readFileSync(masterFilePath, "utf-8"));
+export const extractArgs = (args) => {
+  let master = args[2];
+  let subscribers = args.slice(3);
+  let validFilepaths = [master, ...subscribers].map((p) => (p) => fs.existsSync(p)).every((e) => e);
+  if (validFilepaths) {
+    try {
+      master = JSON.parse(fs.readFileSync(master, "utf-8"));
+      subscribers = subscribers.map((s) => JSON.parse(fs.readFileSync(s, "utf-8")));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
-const subscriberFilePath = args[3];
-const subscriberFileData = JSON.parse(fs.readFileSync(subscriberFilePath, "utf-8"));
+  return { master, subscribers };
+};
 
-// Recursive function to convert JSON to CSV
-// extract(null, file) for initial use
-const extract = (type, object, output = [], nestedKeys) => {
+const { master, subscribers } = extractArgs(process.argv);
+
+// Recursive function to convert JSON file into a CSV
+// Nested keys are concatenated
+export const extract = (
+  type: "keys" | "values" | null,
+  object: Record<string, any>,
+  output: any = [],
+  nestedKeys?: string
+) => {
   for (const [k, val] of Object.entries(object)) {
     const key = nestedKeys ? nestedKeys + "." + k : k;
     if (typeof val === "string") {
@@ -26,17 +44,13 @@ const extract = (type, object, output = [], nestedKeys) => {
   return new Map(output);
 };
 
-const masterFileMap = extract(null, masterFileData);
-const subscriberFileMap = extract(null, subscriberFileData);
-
 const isObject = (item) => {
   return item && typeof item === "object" && !Array.isArray(item);
 };
 
-const mergeDeep = (target, ...sources) => {
+export const mergeDeep = (target, ...sources) => {
   if (!sources.length) return target;
   const source = sources.shift();
-
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
@@ -47,22 +61,21 @@ const mergeDeep = (target, ...sources) => {
       }
     }
   }
-
   return mergeDeep(target, ...sources);
 };
 
-const syncJSON = (masterFileData, subscribers) => {
+// Takes a master JSON and n subscribers and produces a <filename>-updated.json with the new keys from master
+const updateSubscriberJson = (master: object, subscribers: object[]) => {
   subscribers.forEach((sub) => {
-    const newSub = mergeDeep(sub, masterFileData);
-
+    const newSub = mergeDeep(sub, master);
     fs.writeFileSync(`${newSub[".LANG"]}-updated.json`, JSON.stringify(newSub), (err) => {
       if (err) throw err;
     });
   });
 };
 
-// Zips files
-const zipMaps = (mapsArr) => {
+// Zips the JSON files by concatenating their values into a new column
+export const zipMaps = (mapsArr: Map<any, any>[]) => {
   const zipped = new Map();
   mapsArr.forEach((map) => {
     const lang = map.get(".LANG");
@@ -77,11 +90,8 @@ const zipMaps = (mapsArr) => {
       }
     }
   });
-
   return Array.from(zipped, ([key, value]) => ({ ...{ key }, ...value }));
 };
-
-const zippedData = zipMaps([masterFileMap, subscriberFileMap]);
 
 // Turn converted JSON data into a suitable CSV with headers
 const createCsv = (data) => {
@@ -92,5 +102,9 @@ const createCsv = (data) => {
   });
 };
 
-syncJSON(masterFileData, [subscriberFileData]); // produces an updated JSON
+const masterMap = extract(null, master);
+const subscriberMaps = subscribers.map((s) => extract(null, s));
+const zippedData = zipMaps([masterMap, ...subscriberMaps]);
+
+updateSubscriberJson(master, subscribers); // produces an updated JSON
 createCsv(zippedData); // produces an updated CSV
