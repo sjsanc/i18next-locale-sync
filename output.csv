@@ -1,0 +1,268 @@
+key,en,es
+account.account,Account,Cuenta
+account.accountActivationFailure,"Setting up your account is taking longer than expected. Please try again later or should the problem persists, please contact Customer Support.","Configurar tu cuenta está tardando más de lo que esperaba. Por favor, inténtelo de nuevo más tarde o si la situación no cambia, contacta Atención al Cliente."
+account.accountNotFoundMessage,There is a problem with your account. Please try again later or contact Customer Support.,"Hay un problema con tu cuenta. Por favor, inténtelo de nuevo más tarde o contacta Atención al Cliente."
+account.acountSetting,Account Settings,Configuración de cuenta
+account.preferredCurrency,Preferred Currency,Moneda preferida
+account.preferredCurrencyTooltip,Organisation's default currency,Moneda predeterminada de la organización
+account.organisationName,Organisation Name,Nombre de la organización
+account.currencyDropdown,Type Currency or Country,Escribir Moneda o País
+account.resendInvite,Resend Invite,Reenviar Invitación
+account.resetPassword,Reset Password,Cambiar Contraseña
+account.setupAccountMessage,"Setting up your account, please wait...","Configurando tu cuenta, espera por favor..."
+account.trialRemaining,Trial {{daysRemaining}} remaining,Se queda {{daysRemaining}} días de prueba
+account.uploadImage,Upload Image,Subir Imagen
+account.logout,Logout,Cerrar sesión
+company.company,Company,Empresa
+company.companyAddress,COMPANY ADDRESS,Dirección de la empresa
+company.companyName,COMPANY NAME,NOMBRE DE LA EMPRESA
+company.companySetup,Company Setup,Configuración de empresa
+company.taxAndCurrencySubHeading,Tax & Currency,Impuesto & Moneda
+company.welcomeMessage,"Welcome to Flare! Before you get started, please complete your company information below.","¡Bienvenido a Flare! Antes de comenzar, por favor, rellena la información de tu empresa abajo."
+company.editCompanyAddress,Edit Company Address,Editar Dirección de La Empresa
+company.editTaxID,Edit Tax ID,Editar Identificación Fiscal
+company.addTaxID,Add Tax ID,Añadir Identificación Fiscal
+company.taxID,TAX ID,Identificación Fiscal
+company.updateTaxId,Updated Tax ID,Identificación Fiscal Actualizada
+company.toast.updateSuccessful,Company details have been successfully updated.,Las detalles de la empresa se han actualizado con éxito.
+company.toast.updatedTitle,Updated Currency,Moneda actualizada
+company.tooltip.locationName,Location name e.g. 'Main office address',Nombre de la ubicación por ej. 'Dirección de la oficina principal'
+generic.success,Success,
+generic.sort,Sort,
+generic.sortBy,Sort By:,
+generic.completed,Completed,Completado
+generic.cancel,Cancel,Cancelar
+generic.currency,Currency,Moneda
+generic.delete,Delete,Borrar
+generic.profile,Profile,Perfil
+generic.disable,Disable,Desactivar
+generic.email,Email,Correo
+generic.user,User,Usuario
+generic.admin,Admin,Administración
+generic.emailAddress,Email Address,Correo
+generic.edit,Edit,Editar
+generic.enable,Enable,Activar
+generic.error,Error,Error
+generic.flare,Flare,Flare
+generic.flares,Flares,Flares
+generic.fullName,Full Name,Nombre Completo
+generic.help,Help,Ayuda
+generic.action,Action,Acción
+generic.invalid,Invalid,Inválido
+generic.awaiting,Awaiting Dispatch,En espera de envío
+generic.warning,WARNING,ADVERTENCIA
+generic.notYetDispatched,Not yet dispatched,Todavía no ha sido enviado
+generic.allOrders,All Orders,Todos los pedidos
+generic.active,Active,Activo/s
+generic.device,Device,Dispositivo
+generic.devices,Devices,Dispositivos
+generic.orders,Orders,Pedidos
+generic.all,All,Todos
+generic.activeDevices,Active Devices,Dispositivos activos
+generic.activeFlares,Actives Flares,Dispositivos Flares
+generic.actions,Actions,Acciones
+generic.pending,Pending,Pendiente/s
+generic.download,Download,Descargar
+generic.minutesAgo,minutes ago,hace minutos
+generic.new,New,Nuevo
+generic.next,next,Siguiente
+generic.no,No,No
+generic.notApplicable,Not Applicable,No aplicable
+generic.notAvailable,N/A,No disponible
+generic.optionalLabel,(Optional),(Opcional)
+generic.orderFlares,Order Flares,Pedir Flares
+generic.orderedBy,Ordered By,Pedido por
+generic.previous,previous,Anterior
+generic.save,Save,Guardar
+generic.shareFlare,Share Flare,Compartir Flare
+generic.shareOrder,Share Order,Compartir Pedido
+generic.share,Share,Compartir
+generic.unknown,Unknown,Desconocido
+generic.yes,Yes,Sí
+generic.valid,Valid,Válido
+generic.noOptions,No Options,
+generic.confirm,Confirm,
+help.howDoesFlare,How does Flare work,¿Cómo funciona Flare?
+help.stepFour,You receive your Shipment with full tracking visibility,Recibes tu envío con visibilidad de seguimiento total
+help.stepOne,Order and configure your flare devices,Pedir y configurar tus dispositivos de Flare
+help.stepThree,Flares are deployed in your Shipment and tracking is activated,Los Flares se despliegan en tu envío y el seguimiento está activado
+help.stepTwo,Flares are delivered to your specified location,Los Flares se entregan a la ubicación especificada
+invitation.resendInviteOptionMessage,Are you sure you want to resend this invite?,¿Estás seguro que quieres reenviar esta invitación?
+invitation.toast.resendInviteMessage,An invite has been sent,Una invitación se ha enviado
+invitation.toast.resendInviteTitle,Resend Invite,Reenviar Invitación
+list.orderHistory,Order History,Historial de pedidos
+list.listView,List View,Vista de Lista
+list.blankOrderListMessage,There are no {{status}} orders to display.,No hay dispositivos '{{status}}' a mostrar
+list.orderCompleteToast,Order completed,###
+list.filters.shipmentdate.desc,Order Date (newest first),###
+list.filters.shipmentdate.asc,Order Date (oldest first),###
+list.filters.lastupdated.desc,Shipment Date (newest first),###
+list.filters.lastupdated.asc,Shipment Date (oldest first),###
+list.filters.orderdate.desc,Last Updated (newest first),###
+list.filters.orderdate.asc,Last Updated (oldest first),###
+location.addCompanyAddress,Add Company Address,Añadir dirección de la empresa
+location.addressLine1,Address Line 1,Dirección línea 1
+location.addressLine2,Address Line 2,Dirección línea 2
+location.addressLine3,Address Line 3,Dirección línea 3
+location.city,City,Ciudad
+location.cityTown,City/Town,Ciudad/Pueblo
+location.locations,Locations,Ubicaciones
+location.country,Country,País
+location.countryIsRequired,Country is required,El país es necesario
+location.countyLabel,Province/Region,Provincia/Región
+location.contactName,Contact Name,Nombre de contacto
+location.createdBy,Created By,Creado por
+location.deleteLocationHeader,Delete Location,Borrar Ubicación
+location.deleteOptionMessage,Are you sure you want to delete location,¿Estás seguro que quieres borrar Ubicación?
+location.editLocation,Edit {{locationName}},Editar {{locationName}}
+location.locationName,Location Name,Nombre de ubicación
+location.editLocationAction,Edit Location,###
+location.deleteLocationAction,Delete Location,###
+location.newLocation,New Location,Nueva ubicación
+location.noLocationAddedAlert,No locations added yet,No se añadieron ubicaciones todavía
+location.postcodeLabel,Zip/Post Code,Código postal
+location.searchAlert,No locations found that match {{locationSearch}},No se encontraron ubicaciones que son iguales {{locationSearch}}
+location.searchPlaceholder,Search Locations,Buscar ubicaciones
+location.locationRequired,Please select a location,###
+location.selectACountry,Select a country of origin,Selecciona un país
+location.toast.addedSuccessMessage,Company Address has been added.,Dirección de la empresa se ha añadido con éxito.
+location.toast.companyAddressTitle,Company Address,Dirección de la empresa
+location.toast.deletionSuccessMessage,The location has been successfully removed.,La ubicación se ha borrado con éxito.
+location.toast.deletionTitle,Removed Location,Se ha borrado la ubicación
+location.toast.newLocationSuccessMessage,{{locationName}} has been successfully added to your directory.,{{locationName}} se ha añadido al directorio con éxito.
+location.toast.newLocationTitle,New Location,Nueva Ubicación
+location.toast.updatedLocationSuccessMessage,{{locationName}} has been successfully updated.,{{locationName}} se ha actualizado con éxito.
+location.toast.updatedLocationTitle,Updated Location,Ubicación actualizada
+location.toast.updatedSuccessMessage,Company Address has been updated.,Dirección de empresa se ha actualizado.
+location.toast.updatedTaxIdSuccessMessage,The {{taxId}} has been successfully updated.,La {{taxId}} se ha actualizado con éxito.
+map.mapView,Map View,###
+map.dateOrdered,DATE ORDERED,FECHA DEL PEDIDO
+map.filterByDest,Filter by Destination,Filtrar por destino
+map.filterByOrigin,Filter by Origin,Filtrar por origen
+map.markComplete,Mark Complete,Marcar como completo
+map.numSelected,{{num}} selected,{{num}} seleccionado
+map.pendingDevices,Pending Devices,Dispositivos pendientes
+map.reference,REF,Número
+map.shipmentDate,SHIPMENT DATE,Fecha del envío
+map.searchDevices,Search devices,Buscar dispositivos
+map.searchPosOrDevices,Search POs or Devices,Buscar Órdenes de compra o Dispositivos
+map.shareTrackingLink,Share Tracking Link,Compartir enlace del seguimiento
+map.copyOrder,Click to Copy Order Link,Haz clic para copiar enlace del pedido
+map.noActiveDeviceMessage,No Active devices to display.,No hay dispositivos activos a mostrar
+map.trackingFromTo,TRACKING FROM/TO,Seguimiento desde/a
+map.deviceId,Device ID,Identificación de dispositivo
+map.lastUpdate,Last Update,Última actualización
+map.battery,Battery %,Carga %
+map.tempHumidity,Temp / Humidity,Temperatura/Humedad
+map.tableHeaders.device,Device,Dispositivo
+map.tableHeaders.deviceId,Device ID,Identificación de dispositivo
+map.tableHeaders.lastUpdate,Last Update,Última actualización
+map.tableHeaders.battery,Battery %,Carga %
+map.tableHeaders.tempHumidity,Temp / Humidity,Temperatura/Humedad
+newOrderForm.tooltip.shipment,We can provide better tracking if you let us know the details of your shipment,Podemos proveer mejor seguimiento si nos das detalles de tu envío
+newOrderForm.tooltip.trackingFrom,This is the location we dispatch Flare devices from,Ésta es la ubicación desde enviamos los dispositivos de Flare
+newOrderForm.tooltip.trackingTo,We will track each Flare device to this location,Seguiremos cada dispositivo de Flare a ésta ubicación
+newOrderForm.tooltip.deviceLabel,This label is attached to each device and provides instructions for the recipient as to location preferences for the device within the shipment,Esta etiqueta está adjunta a cada dispositivo y provee instruciones para el receptor en cuanto a las preferencias de ubicación para el dispositivo dentro del envío
+newOrderForm.placeholder.shipmentName,Give your shipment a name you will remember,Dar un nombre a tu envío
+newOrderForm.placeholder.referenceType,Choose a reference type,Elegir un tipo de referencia
+newOrderForm.placeholder.referenceNumber,Enter a reference,Entrar una referencia
+newOrderForm.placeholder.country,Selecting a country of origin for your shipment,Seleccionar un país de origen para tu envío
+newOrderForm.placeholder.transportMode,Choose a shipment mode,Elegir un modo
+newOrderForm.modes.air,Air,
+newOrderForm.modes.sea,Sea,
+newOrderForm.modes.road,Road,
+newOrderForm.modes.rail,Rail,
+newOrderForm.purchaseOrderNumber,Purchase Order Number,
+newOrderForm.shipmentOrderNumber,Shipment Order Number,
+newOrderForm.beforeCutoff,within {{hours}} hours {{minutes}} minutes,###
+newOrderForm.afterCutoff,before {{cutoffTime}}pm tomorrow,###
+newOrderForm.dispatchLocation,"When, and from where, will your shipment leave?",###
+newOrderForm.flarePlaceholder,Specify where the Flare device should be deployed...,###
+newOrderForm.deviceLabel,Device label,Etiqueta de dispositivo
+newOrderForm.deviceLocation,Device location,Ubicación de dispositivo
+newOrderForm.shipment,shipment,Envío
+newOrderForm.delivery,flare delivery,Envío
+newOrderForm.setup,flare setup,Flare Configuración
+newOrderForm.summary,summary,Resumen
+newOrderForm.shipmentName,Shipment Name,Nombre del envío
+newOrderForm.referenceType,Shipment Reference Type,Tipo de referencia del envío
+newOrderForm.reference,Shipment Reference,Referencia del envío
+newOrderForm.mode,Shipment Mode,Modo
+newOrderForm.transportMode,Shipment Mode,Modo de transporte
+newOrderForm.referenceNumber,Reference Number,Número de referencia
+newOrderForm.shipmentDate,Shipment Date,Fecha del envío
+newOrderForm.selectShipment,Select a shipment date,Selecciona una fecha de envío
+newOrderForm.enterOriginFirst,Select a country of origin first,"En primero, selecciona un país de origen"
+newOrderForm.tellUs,Tell us about the shipment you will be tracking,Cuéntanos del envío que seguirás
+newOrderForm.deliveringTo,Delivering to,Entregando a
+newOrderForm.deliveryNotice,FREE Delivery. The estimated delivery date is {{date}}. Order {{time}},Entrega GRATIS. La fecha esperada de entrega es {{date}} Pedido {{time}}
+newOrderForm.trackingFrom,Choose a dispatch location. This is the address we will send the devices to and initiate tracking,Elegir una ubicación de despacho. Ésta es la dirección a la que enviaremos los dispositivos y iniciar el seguimiento
+newOrderForm.trackingTo,Choose a delivery location. This is the address we will track the devices to and then terminate tracking,"Elegir una ubicación de entrega. Ésta es la dirección a la que seguiremos los dispositivos y entonces, terminaremos seguimiento"
+newOrderForm.selectLocation,Select a location,Selecciona una ubicación
+newOrderForm.origin,Shipment Country of Origin,País del origen del envío
+newOrderForm.startingFrom,Shipment Origin,Origen del envío
+newOrderForm.addAddress,Add Address,Añadir dirección
+newOrderForm.saveAddress,Save Address,Guardar dirección
+newOrderForm.addAndSetup,Now you can choose to assign any number of devices to this shipment. Each device can have a custom placement note (see image) so the recipient can place each device in your desired position within the goods being shipped. The Flare devices will be tracked from the Origin to the Destination of your shipment,"Ahora, puedes asignar qualquier número de dispositivos a este envío. Cada dispositivo puede tener una nota de colocación personalizada (ver imagen) para que el receptor pueda colocar cada dispositivo en tu posición deseada dentro del envío"
+newOrderForm.addDevice,Add Another,Añadir otro
+newOrderForm.pricePerFlare,Price per Flare,Precio por Flare
+newOrderForm.total,Order Total,Total del pedido
+newOrderForm.confirm,Confirm your Order,Confirma tu pedido
+newOrderForm.orderCount,Your order is for {{value}} Flare devices,Tu pedido es de {{value}} dispositivos de Flare
+newOrderForm.orderDelivery,Your devices will be delivered to,Tus dispositivos se entregarán a
+newOrderForm.placeOrder,Place Order,Realizar un pedido
+newOrderForm.orderSuccessful,Order successful,
+user.userProfile,User Profile,Perfil del usuario
+user.users,Users,Usuarios
+user.disableOptionMessage,Are you sure you want to disable this user?,¿Estás seguro que quieres desactivar este usuario?
+user.emailAlreadyUseMessage,"This email is already in use, please try a different email.","Este correo electrónico está en uso. Por favor, intenta otro correo electrónico."
+user.error.currencyFailureMessage,Failed to update currency,No se pudo actualizar la moneda
+user.exposeUserToOtherOrganization,Expose this user to other Organizations,Exponer este usuario a otras organizaciones
+user.firstName,First Name,Nombre
+user.location,Location,Ubicación
+user.name,Name,Nombre
+user.fullName,Full Name,Nombre Completo
+user.newUser,New User,Nuevo Usuario
+user.noUserAddedAlert,No users added yet,No se añadieron usuarios todavía
+user.phoneNumber,Phone Number,Número de teléfono
+user.role,Role,Papel
+user.searchAlert,No users found that match {{userSearch}},No se encontraron usuarios que son iguales {{userSearch}}
+user.searchPlaceholder,Search Users,Buscar Usuarios
+user.status,Status,Estado
+user.surname,Surname,Apellido
+user.temperatureUnit,Temperature Units,Unidades de temperatura
+user.degreesFahrenheit,Degrees Fahrenheit (°F),Fahrenheit (°F)
+user.degreesCelsius,Degrees Celsius (°C),Celsius (°C)
+user.toast.currencyUpdatedMessage,The currency has been successfully updated.,La moneda se ha actualizado con éxito.
+user.toast.currencyUpdatedTitle,Updated Currency,Moneda actualizada
+user.toast.disabledSuccessMessage,The user has been successfully disabled.,El usuario se ha desactivado con éxito.
+user.toast.disabledTitle,Disabled User,Usuario desactivado
+user.toast.newUserAddedMessage,New user has been added,Nuevo usuario se ha añadido
+user.toast.updateTitle,Updated,Actualizado
+user.toast.userProfileFetchError,Something went wrong while fetching for user profile,Algo salió mal mientras buscaba el perfil del usuario
+user.toast.userUpdateMessage,User has been updated,Usuario se ha actualizado
+user.visibleToOtherOrganizations,Visible to Other Organizations,Visible a otras organizaciones
+validation.checkTypeValidationMessage,You must select a {{value}},Debes seleccionar un {{value}}
+validation.dateCannotBeInPast,{{value}} cannot be in the past,{{value}} no puede ser en el pasado
+validation.dateMustNotBeBefore,{{date2}} must not be before {{date1}},{{date2}} no debe ser antes de {{date1}}
+validation.dateMustNotBeOnOrBefore,{{date2}} must not be on or before {{date1}},{{date2}} no debe ser en o antes de {{date1}}
+validation.datesAreNotValid,Dates are not valid,Las fechas no son válidas
+validation.emailValidFormatMessage,Email must be in a valid format,El correo debe ser de formato válido
+validation.hsCodeValidationMessage,HS Code must be 6 to 10 numeric characters.,El código HS debe ser entre 6 a 10 carácteres numéricos.
+validation.isNotValid,{{value}} is not valid,{{value}} no es válido
+validation.maxLimitCharactersMessage,{{value}} must be at most {{limit}} characters,{{value}} debe ser como máximo {{limit}} carácteres
+validation.minLimitCharactersMessage,{{value}} must be at least {{limit}} characters,{{value}} debe ser como mínimo {{limit}} carácteres
+validation.mustOnlyContainLetters,must only contain letters,solo debe contener letras
+validation.mustOnlyContainLettersAndNumbers,must only contain letters and numbers,solo debe contener letras y números
+validation.mustOnlyContainNumbers,must only contain numbers,solo debe contener números
+validation.seeAboveErrorMessage,Please see above for errors,"Por favor, ve arriba para ver los errores"
+validation.skuMustBeDifferentMessage,SKU must be different from original product,La SKU debe ser diferente del producto original
+validation.genericToastErrorMessage,Something went wrong,Algo salió mal
+validation.dateBeforeToday,Selected date cannot be in the past,Esta fecha seleccionada no puede ser en el pasado
+validation.genericRequired,Required field,Campo requerido
+validation.required,{{value}} is required,{{value}} es requerido
+validation.minLength,{{value}} must be at least {{n}} characters,{{value}} se debe ser al menos {{n}} caracteres
+validation.maxLength,{{value}} cannot be more than {{n}} characters,{{value}} no se puede ser más que {{n}} caracteres
+validation.validationRequiredMessage,{{value}} is required,{{value}} es necesario
+location.companyTabTitle,,Ubicaciones
+location.warning,,ADVERTENCIA
