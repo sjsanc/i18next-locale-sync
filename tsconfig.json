@@ -1,10 +1,17 @@
 {
   "compilerOptions": {
     "outDir": "lib",
-    "lib": ["es2016"],
     "sourceMap": true,
-    "downlevelIteration": true,
-    "esModuleInterop": false
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["./src"]
 }
