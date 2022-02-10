@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.66% </span>
+                <span class="strong">51.02% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/48</span>
+                <span class='fraction'>25/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">24% </span>
+                <span class="strong">44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/25</span>
+                <span class='fraction'>11/25</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.23% </span>
+                <span class="strong">53.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/42</span>
+                <span class='fraction'>23/43</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -153,7 +153,8 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -183,19 +184,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,6 +233,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -245,7 +247,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Compilation, Compiler, Stats } from "webpack";
 import fs from "fs";
-import path from "path";
+&nbsp;
 export default class i18nextLocaleSyncPlugin {
   public test: string;
   public masterLocale: string;
@@ -273,19 +275,19 @@ export default class i18nextLocaleSyncPlugin {
   }
 &nbsp;
   isObject(item: any) {
-    return item &amp;&amp; typeof item === "object" &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!Array.isArray(item);</span>
+    return item &amp;&amp; typeof item === "object" &amp;&amp; !Array.isArray(item);
   }
 &nbsp;
   mergeDeep(target: any, ...sources: any): any {
     if (!sources.length) return target;
     const source = sources.shift();
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.isObject(target) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.isObject(source))</span> {
-<span class="cstat-no" title="statement not covered" >      for (const key in source) {</span>
-<span class="cstat-no" title="statement not covered" >        if (this.isObject(source[key])) {</span>
+    if (this.isObject(target) &amp;&amp; this.isObject(source)) {
+      for (const key in source) {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.isObject(source[key])) {
 <span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>if (!target[key]) <span class="cstat-no" title="statement not covered" >Object.assign(target, { [key]: "" });</span></span>
 <span class="cstat-no" title="statement not covered" >          this.mergeDeep(target[key], source[key]);</span>
         } else {
-<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>if (!target[key]) <span class="cstat-no" title="statement not covered" >Object.assign(target, { [key]: "" });</span></span>
+          if (!target[key]) Object.assign(target, { [key]: "" });
         }
       }
     }
@@ -311,21 +313,22 @@ export default class i18nextLocaleSyncPlugin {
   }
 &nbsp;
   apply(compiler: Compiler) {
-    compiler.hooks.emit.tap("i18nextLocaleSyncPlugin", (compilation: Compilation) =&gt; {
+    compiler.hooks.thisCompilation.tap("i18nextLocaleSyncPlugin", (compilation: Compilation) =&gt; {
       process.chdir("public/locales");
       const cwd = process.cwd();
 &nbsp;
       fs.readdirSync(cwd).forEach((l) =&gt; {
         this.translations.set(l, {
           path: `${cwd}/${l}/translation.json`,
-          data: fs.readFileSync(`${cwd}/${l}/translation.json`, "utf-8"),
+          data: JSON.parse(fs.readFileSync(`${cwd}/${l}/translation.json`, "utf-8")),
         });
       });
 &nbsp;
       if (this.masterLocale) {
+        const masterData = this.translations.get(this.masterLocale).data;
         this.translations.forEach((v, k) =&gt; {
           if (k !== this.masterLocale) {
-            const updated = this.mergeDeep(v.data, this.translations.get(k));
+            const updated = this.mergeDeep(v.data, masterData);
             fs.writeFileSync(v.path, JSON.stringify(updated));
           }
         });
@@ -340,7 +343,7 @@ export default class i18nextLocaleSyncPlugin {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Feb 10 2022 10:32:57 GMT+0000 (Greenwich Mean Time)
+                at Thu Feb 10 2022 13:00:34 GMT+0000 (Greenwich Mean Time)
             </div>
         <script src="prettify.js"></script>
         <script>

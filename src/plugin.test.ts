@@ -62,8 +62,8 @@ afterAll(() => {
 const createSourceFolder = () => {
   // sandbox.deleteSync(sourcePath);
   sandbox.createFileSync(entryFile);
-  sandbox.createFileSync(`public/locales/en/translation.json`, `{ ".LANG": "en", "test": "test" }`);
-  sandbox.createFileSync(`public/locales/es/translation.json`, `{ ".LANG": "es", "test": "test" }`);
+  sandbox.createFileSync(`public/locales/en/translation.json`, `{ ".LANG": "en", "test": "file" }`);
+  sandbox.createFileSync(`public/locales/es/translation.json`, `{ ".LANG": "es", "sub": "" }`);
 };
 
 // test("Test sandbox for files and content", async () => {
@@ -86,9 +86,11 @@ test("Test webpack can read files in public folder", async () => {
   });
 
   expect(localeSyncPlugin.translations).toEqual(new Map());
-
   await compiler.run();
-  // expect(localeSyncPlugin.currentAssets).toEqual([
+  console.log(localeSyncPlugin.translations);
+
+  // console.log(localeSyncPlugin.translations);
+  // expect(localeSyncPlugin.translations).toEqual([
   //   `public/locales/en/translation.json`,
   //   `public/locales/es/translation.json`,
   // ]);

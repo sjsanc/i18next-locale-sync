@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/plugin.js",
+  "types": "src/plugin.d.ts",
   "author": "sjsanc",
   "files": [
     "lib"

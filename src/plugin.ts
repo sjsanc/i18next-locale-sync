@@ -1,6 +1,6 @@
 import { Compilation, Compiler, Stats } from "webpack";
 import fs from "fs";
-import path from "path";
+
 export default class i18nextLocaleSyncPlugin {
   public test: string;
   public masterLocale: string;
@@ -66,21 +66,22 @@ export default class i18nextLocaleSyncPlugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.emit.tap("i18nextLocaleSyncPlugin", (compilation: Compilation) => {
+    compiler.hooks.thisCompilation.tap("i18nextLocaleSyncPlugin", (compilation: Compilation) => {
       process.chdir("public/locales");
       const cwd = process.cwd();
 
       fs.readdirSync(cwd).forEach((l) => {
         this.translations.set(l, {
           path: `${cwd}/${l}/translation.json`,
-          data: fs.readFileSync(`${cwd}/${l}/translation.json`, "utf-8"),
+          data: JSON.parse(fs.readFileSync(`${cwd}/${l}/translation.json`, "utf-8")),
         });
       });
 
       if (this.masterLocale) {
+        const masterData = this.translations.get(this.masterLocale).data;
         this.translations.forEach((v, k) => {
           if (k !== this.masterLocale) {
-            const updated = this.mergeDeep(v.data, this.translations.get(k));
+            const updated = this.mergeDeep(v.data, masterData);
             fs.writeFileSync(v.path, JSON.stringify(updated));
           }
         });
