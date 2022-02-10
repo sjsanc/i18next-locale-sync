@@ -34,16 +34,34 @@ const sandbox = new TempSandbox({ randomDir: true });
 const entryFile = "src/index.js";
 const entryFileFull = sandbox.path.resolve(entryFile);
 
-// const publicFile = "public/locales/en/translation.json";
-// const publicFileFull = sandbox.path.resolve(publicFile);
-
 const outputPath = "dist";
 const outputPathFull = sandbox.path.resolve(outputPath);
 
-const sourcePath = "src";
+const langOnePath = "public/locales/en/translation.json";
+const langTwoPath = "public/locales/es/translation.json";
+
+const csvOutputPath = "output.csv";
 
 let consoleSpy: any;
 const cwd = process.cwd();
+
+const testTranslations = {
+  langOne: {
+    test: "test",
+    keyFromMaster: "this should be empty",
+    nested: { nestedChild: "", ".specialKey": "" },
+  },
+  langTwo: {
+    test: "test",
+    nested: { nestedChild: "", ".specialKey": "" },
+    discardedKey: "this should be discarded",
+  },
+  langTwoMerged: {
+    test: "test",
+    keyFromMaster: "",
+    nested: { nestedChild: "", ".specialKey": "" },
+  },
+};
 
 beforeEach(() => {
   process.chdir(sandbox.dir);
@@ -60,22 +78,23 @@ afterAll(() => {
 });
 
 const createSourceFolder = () => {
-  // sandbox.deleteSync(sourcePath);
   sandbox.createFileSync(entryFile);
-  sandbox.createFileSync(`public/locales/en/translation.json`, `{ ".LANG": "en", "test": "file" }`);
-  sandbox.createFileSync(`public/locales/es/translation.json`, `{ ".LANG": "es", "sub": "" }`);
+  sandbox.createFileSync(langOnePath, testTranslations.langOne);
+  sandbox.createFileSync(langTwoPath, testTranslations.langTwo);
 };
 
-// test("Test sandbox for files and content", async () => {
-//   sandbox.deleteSync(sourcePath);
-//   sandbox.createFileSync(`public/locales/en/translation.json`, `{ ".LANG": "en", "test": "test" }`);
-//   const fileListSync = sandbox.getFileListSync();
-//   expect(fileListSync).toEqual(["public/locales/en/translation.json"]);
-//   const fileContent = sandbox.readFileSync(fileListSync[0]);
-//   expect(fileContent).toEqual({ ".LANG": "en", test: "test" });
-// });
+test("Test that plugin initialises", async () => {
+  createSourceFolder();
+  const localeSyncPlugin = new i18nextLocaleSyncPlugin({ masterLocale: "en" });
+  const compiler = webpack({
+    entry: entryFileFull,
+    output: { path: outputPathFull, filename: "bundle.js" },
+    plugins: [localeSyncPlugin],
+  });
+  expect(localeSyncPlugin.translations).toEqual(new Map());
+});
 
-test("Test webpack can read files in public folder", async () => {
+test("Test that the plugin merges objects and removes keys not found on master", async () => {
   createSourceFolder();
 
   const localeSyncPlugin = new i18nextLocaleSyncPlugin({ masterLocale: "en" });
@@ -85,13 +104,21 @@ test("Test webpack can read files in public folder", async () => {
     plugins: [localeSyncPlugin],
   });
 
-  expect(localeSyncPlugin.translations).toEqual(new Map());
   await compiler.run();
-  console.log(localeSyncPlugin.translations);
+  expect(sandbox.readFileSync(langTwoPath)).toEqual(testTranslations.langTwoMerged);
+});
 
-  // console.log(localeSyncPlugin.translations);
-  // expect(localeSyncPlugin.translations).toEqual([
-  //   `public/locales/en/translation.json`,
-  //   `public/locales/es/translation.json`,
-  // ]);
+test("Test that plugin produces a CSV of all zipped translations", async () => {
+  createSourceFolder();
+
+  const localeSyncPlugin = new i18nextLocaleSyncPlugin({ masterLocale: "en", produceCSV: true });
+  const compiler = webpack({
+    entry: entryFileFull,
+    output: { path: outputPathFull, filename: "bundle.js" },
+    plugins: [localeSyncPlugin],
+  });
+
+  await compiler.run();
+  console.log(sandbox.readFileSync(csvOutputPath));
+  expect(sandbox.readFileSync(csvOutputPath));
 });

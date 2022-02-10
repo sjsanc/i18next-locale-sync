@@ -1,0 +1,9 @@
+{
+  "example": "example",
+  "nested": {
+    "nestedChild": "nestedChild",
+    "deeplyNested": {
+      "deeplyNestedChild": "Stop!"
+    }
+  }
+}
