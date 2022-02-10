@@ -1,6 +1,6 @@
-import { Compilation, Compiler, Stats } from "webpack";
+import { Compilation, Compiler } from "webpack";
 import fs from "fs";
-import { stringify } from "csv-stringify/.";
+import { stringify } from "csv-stringify";
 
 export default class i18nextLocaleSyncPlugin {
   public test: string;

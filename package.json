@@ -1,12 +1,13 @@
 {
-  "name": "json-csv-sync",
+  "name": "i8next-webpack-locale-sync",
   "version": "1.0.0",
   "description": "",
   "main": "lib/plugin.js",
   "types": "src/plugin.d.ts",
   "author": "sjsanc",
   "files": [
-    "lib"
+    "lib",
+    "src/plugin.d.ts"
   ],
   "scripts": {
     "build": "tsc",
