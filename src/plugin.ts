@@ -1,15 +1,15 @@
 import { Compilation, Compiler } from "webpack";
 import fs from "fs";
 import { stringify } from "csv-stringify";
+import { i18nextLocaleSyncPluginOptions } from "./types";
 
-export default class i18nextLocaleSyncPlugin {
-  public test: string;
+export class i18nextLocaleSyncPlugin {
   public masterLocale: string;
-  public produceCSV = false;
+  public produceCSV?: boolean = false;
   public CSVoutput: any;
   public translations: Map<string, { path: string; data: any }> = new Map();
 
-  constructor(props: any) {
+  constructor(props: i18nextLocaleSyncPluginOptions) {
     this.masterLocale = props.masterLocale;
     this.produceCSV = props.produceCSV;
   }
@@ -100,7 +100,7 @@ export default class i18nextLocaleSyncPlugin {
       });
 
       if (this.masterLocale) {
-        const masterData = this.translations.get(this.masterLocale).data;
+        const masterData = this.translations.get(this.masterLocale)!.data;
         this.translations.forEach((v, k) => {
           if (k !== this.masterLocale) {
             const updated = this.diff(this.mergeDeep(v.data, masterData), masterData);

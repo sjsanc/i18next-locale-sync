@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- added CHANGELOG.md
+- added typescript declarations
+
 ### Fixed
+
+- Fixed crash on missing translation file
 
 ## [1.0.0]
 

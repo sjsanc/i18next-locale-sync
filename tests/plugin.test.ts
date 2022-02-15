@@ -1,6 +1,6 @@
 import { TempSandbox } from "temp-sandbox";
 import { Compiler, Configuration, Stats } from "webpack";
-import i18nextLocaleSyncPlugin from "./plugin";
+import { i18nextLocaleSyncPlugin } from "../src/plugin";
 
 type TestConfiguration = Omit<Configuration, "mode"> & {
   mode?: Configuration["mode"] | null;

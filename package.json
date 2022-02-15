@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/plugin.js",
-  "types": "src/plugin.d.ts",
+  "types": "lib/types.d.ts",
   "author": "sjsanc",
   "files": [
     "lib/plugin.js",
-    "src/plugin.d.ts"
+    "lib/plugin.d.ts"
   ],
   "scripts": {
-    "build": "tsc",
     "clean": "del-cli --dot=true \"./lib/**/*\"",
+    "build": "npm run clean && npm run build.compile && npm run build.types",
+    "build.compile": "cross-env NODE_ENV=production babel src -d lib --verbose --extensions .ts --ignore */**/*.d.ts,**/**/*.test.ts --source-maps",
+    "build.types": "cross-env NODE_ENV=production tsc --project tsconfig.types.json",
     "dev": "npm run clean && cross-env NODE_ENV=development babel -w src -d lib --verbose --extensions .ts --ignore */**/*.d.ts,**/**/*.test.ts --source-maps",
     "test": "jest",
     "test.watch": "jest --watch"
