@@ -82,14 +82,21 @@ export default class i18nextLocaleSyncPlugin {
 
   apply(compiler: Compiler) {
     compiler.hooks.emit.tap("i18nextLocaleSyncPlugin", (compilation: Compilation) => {
+      if (!fs.existsSync("public/locales")) {
+        console.error("Unable to find an entry direction at 'public/locales'");
+        return;
+      }
+
       process.chdir("public/locales");
       const cwd = process.cwd();
 
       fs.readdirSync(cwd).forEach((l) => {
-        this.translations.set(l, {
-          path: `${cwd}/${l}/translation.json`,
-          data: JSON.parse(fs.readFileSync(`${cwd}/${l}/translation.json`, "utf-8")),
-        });
+        const path = `${cwd}/${l}/translation.json`;
+        if (fs.existsSync(path))
+          this.translations.set(l, {
+            path: path,
+            data: JSON.parse(fs.readFileSync(path, "utf-8")),
+          });
       });
 
       if (this.masterLocale) {

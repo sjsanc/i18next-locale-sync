@@ -81,6 +81,7 @@ const createSourceFolder = () => {
   sandbox.createFileSync(entryFile);
   sandbox.createFileSync(langOnePath, testTranslations.langOne);
   sandbox.createFileSync(langTwoPath, testTranslations.langTwo);
+  sandbox.createDirSync("public/locales/.DS_Store/");
 };
 
 test("Test that plugin initialises", async () => {
