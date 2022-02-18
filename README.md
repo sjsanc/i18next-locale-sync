@@ -5,7 +5,7 @@ Syncs i18next translations files against a master locale.
 ## Install
 
 ```console
-npm install i8next-webpack-locale-sync --save-dev
+npm install i18next-webpack-locale-sync --save-dev
 ```
 
 **webpack.config.js**
