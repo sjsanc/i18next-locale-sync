@@ -1,4 +1,4 @@
-# i8next-webpack-locale-sync
+# i18next-webpack-locale-sync
 
 Syncs i18next translations files against a master locale.
 
