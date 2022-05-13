@@ -89,7 +89,7 @@ export class Plugin implements WebpackPluginInstance {
           const csvLikeArray = Array.from(zipMap, ([k, v]) => ({ ...{ k }, ...v }));
           process.chdir(this.outDir);
           stringify(csvLikeArray, { header: true, columns }, (err, out) => {
-            fs.writeFile(DEFAULT_OUTFILE, out, (err) => {
+            fs.writeFile(this.outFile, out, (err) => {
               if (err) throw err;
               else {
                 if (this.verbose) console.log(`<<LOCALE_SYNC>> Merged CSV generated`);
