@@ -1,7 +1,7 @@
 import { stringify } from "csv-stringify";
 import fs from "fs";
-import { Compiler, WebpackPluginInstance } from "webpack";
-import { mergeDeep, pruneKeys } from "./utilities";
+import { WebpackPluginInstance } from "webpack";
+import { extractDotnestedKeys, mergeDeep, pruneKeys } from "./utilities";
 
 const PLUGIN_NAME = "i18nextWebpackLocaleSyncPlugin";
 const DEFAULT_LOCALE_FILEPATH = "public/locales";
@@ -30,7 +30,7 @@ export class Plugin implements WebpackPluginInstance {
     this.outFile = props.outFile || DEFAULT_OUTFILE;
   }
 
-  apply(compiler: Compiler) {
+  apply(compiler: any) {
     compiler.hooks.emit.tap(PLUGIN_NAME, (compilation: any) => {
       if (!fs.existsSync(DEFAULT_LOCALE_FILEPATH)) {
         console.error(`Unable to find a valid directory at ${DEFAULT_LOCALE_FILEPATH}`);
@@ -39,7 +39,7 @@ export class Plugin implements WebpackPluginInstance {
         process.chdir(DEFAULT_LOCALE_FILEPATH);
         const cwd = process.cwd();
 
-        // Parse the JSON for each locale
+        // Parse the JSON for each locale into memory
         fs.readdirSync(cwd).forEach((locale) => {
           const path = `${cwd}/${locale}/${DEFAULT_TRANSLATION_FILENAME}`;
           if (fs.existsSync(path)) {
@@ -50,7 +50,7 @@ export class Plugin implements WebpackPluginInstance {
           }
         });
 
-        // Merge and prune the subordinate locales against the master
+        // Merge and prune the subordinate locales against the master and write to file
         const masterLocaleTranslation = this.translations.get(this.masterLocaleKey);
         if (masterLocaleTranslation) {
           const masterLocale = masterLocaleTranslation.data;
@@ -69,7 +69,7 @@ export class Plugin implements WebpackPluginInstance {
           const columns = { key: "key" };
 
           this.translations.forEach((locale, localeKey) => {
-            const dotnestedEntries = dotnestedExtract(null, locale.data);
+            const dotnestedEntries = extractDotnestedKeys(null, locale.data);
             columns[localeKey] = localeKey;
             for (const [key, val] of dotnestedEntries.entries()) {
               if (zipMap.get(key)) {

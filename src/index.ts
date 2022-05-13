@@ -1,12 +1,9 @@
-import { Compilation, Compiler } from "webpack";
-import fs from "fs";
-import { stringify } from "csv-stringify";
-import { Plugin as i18NextWebpackLocaleSyncPlugin } from "./plugin";
+import { Plugin as i18nextWebpackLocaleSyncPlugin } from "./plugin";
 
-interface i18nextLocaleSyncPluginOptions {
-  masterLocale: string;
-  produceCSV?: boolean;
-}
+// interface i18nextLocaleSyncPluginOptions {
+//   masterLocale: string;
+//   produceCSV?: boolean;
+// }
 
 // class i18nextLocaleSyncPlugin {
 //   public masterLocale: string;
@@ -143,4 +140,4 @@ interface i18nextLocaleSyncPluginOptions {
 //   }
 // }
 
-export default i18NextWebpackLocaleSyncPlugin;
+export default i18nextWebpackLocaleSyncPlugin;

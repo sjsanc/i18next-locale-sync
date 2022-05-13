@@ -18,7 +18,7 @@
     "sync"
   ],
   "dependencies": {
-    "csv": "^6.0.5"
+    "csv-stringify": "^6.0.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",

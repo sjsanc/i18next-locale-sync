@@ -1,10 +1,11 @@
 /**
  * Transforms multiple JSON documents into a single Map, using dotnested keys as Map keys
  * Lifted from https://stackoverflow.com/questions/27936772/how-to-deep-merge-instead-of-shallow-merge
- * @param type
- * @param object
- * @param output
- * @param nestedKeys
+ * @param type either "keys", "values" or null for the initial pass
+ * @param object the locale translation data
+ * @param output a Map containing the dotnested keys
+ * @param nestedKeys top-level key for the next recurse
+ * @returns
  */
 export function extractDotnestedKeys(
   type: "keys" | "values" | null,
@@ -20,6 +21,7 @@ export function extractDotnestedKeys(
       else output.push([key, val]);
     } else extractDotnestedKeys(type, val, output, key);
   }
+  console.log(new Map(output));
   return new Map(output);
 }
 
