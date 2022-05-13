@@ -1,38 +1,29 @@
 {
   "name": "i18next-webpack-locale-sync",
-  "version": "1.0.0",
-  "description": "",
-  "main": "lib/plugin.js",
-  "types": "lib/types.d.ts",
+  "version": "1.0.2",
+  "description": "Syncs i18next translations files against a master locale",
+  "main": "dist/preconstruct-test.cjs.js",
+  "module": "dist/preconstruct-test.esm.js",
   "author": "sjsanc",
-  "files": [
-    "lib/plugin.js",
-    "lib/plugin.d.ts"
-  ],
+  "license": "MIT",
   "scripts": {
-    "clean": "del-cli --dot=true \"./lib/**/*\"",
-    "build": "npm run clean && npm run build.compile && npm run build.types",
-    "build.compile": "cross-env NODE_ENV=production babel src -d lib --verbose --extensions .ts --ignore */**/*.d.ts,**/**/*.test.ts --source-maps",
-    "build.types": "cross-env NODE_ENV=production tsc --project tsconfig.types.json",
-    "dev": "npm run clean && cross-env NODE_ENV=development babel -w src -d lib --verbose --extensions .ts --ignore */**/*.d.ts,**/**/*.test.ts --source-maps",
-    "test": "jest",
-    "test.watch": "jest --watch"
+    "build": "preconstruct build",
+    "release": "yarn build && npm publish"
   },
   "keywords": [
     "i18next",
+    "webpack",
     "json",
     "csv",
     "sync"
   ],
-  "license": "ISC",
   "dependencies": {
     "csv": "^6.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.0",
-    "@babel/core": "^7.17.2",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-env": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
+    "@preconstruct/cli": "^2.1.5",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.14",
     "babel-jest": "^27.5.1",
@@ -43,7 +34,6 @@
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.5",
-    "webpack": "^5.68.0",
-    "webpack-cli": "^4.9.2"
+    "webpack": "^5.72.1"
   }
 }

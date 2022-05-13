@@ -1,9 +1,13 @@
-import { Compilation, Compiler } from "webpack";
-import fs from "fs";
-import { stringify } from "csv-stringify";
-import { i18nextLocaleSyncPluginOptions } from "./types";
+const { Compilation, Compiler } = require("webpack");
+const fs = require("fs");
+const { stringify } = require("csv-stringify");
 
-export class i18nextLocaleSyncPlugin {
+interface i18nextLocaleSyncPluginOptions {
+  masterLocale: string;
+  produceCSV?: boolean;
+}
+
+class i18nextLocaleSyncPlugin {
   public masterLocale: string;
   public produceCSV?: boolean = false;
   public CSVoutput: any;
@@ -14,6 +18,7 @@ export class i18nextLocaleSyncPlugin {
     this.produceCSV = props.produceCSV;
   }
 
+  // Rescursively extracts the dotnested path for each JSON key
   extract(
     type: "keys" | "values" | null,
     object: Record<string, any>,
@@ -80,8 +85,8 @@ export class i18nextLocaleSyncPlugin {
     return Array.from(zipped, ([key, value]) => ({ ...{ key }, ...value }));
   }
 
-  apply(compiler: Compiler) {
-    compiler.hooks.emit.tap("i18nextLocaleSyncPlugin", (compilation: Compilation) => {
+  apply(compiler: any) {
+    compiler.hooks.emit.tap("i18nextLocaleSyncPlugin", (compilation: any) => {
       if (!fs.existsSync("public/locales")) {
         console.error("Unable to find an entry direction at 'public/locales'");
         return;
@@ -126,6 +131,7 @@ export class i18nextLocaleSyncPlugin {
 
         const prepped = Array.from(zip, ([key, val]) => ({ ...{ key }, ...val }));
         process.chdir("../..");
+
         stringify(prepped, { header: true, columns }, (err, out) => {
           fs.writeFile("output.csv", out, (err) => {
             if (err) throw err;
@@ -135,3 +141,5 @@ export class i18nextLocaleSyncPlugin {
     });
   }
 }
+
+module.exports = i18nextLocaleSyncPlugin;

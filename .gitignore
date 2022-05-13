@@ -2,3 +2,5 @@ node_modules/
 lib
 coverage
 unused.js
+TODO.md
+sandbox
