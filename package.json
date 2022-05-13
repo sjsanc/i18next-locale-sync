@@ -2,8 +2,8 @@
   "name": "i18next-webpack-locale-sync",
   "version": "1.0.2",
   "description": "Syncs i18next translations files against a master locale",
-  "main": "dist/preconstruct-test.cjs.js",
-  "module": "dist/preconstruct-test.esm.js",
+  "main": "dist/i18next-webpack-locale-sync.cjs.js",
+  "module": "dist/i18next-webpack-locale-sync.esm.js",
   "author": "sjsanc",
   "license": "MIT",
   "scripts": {
