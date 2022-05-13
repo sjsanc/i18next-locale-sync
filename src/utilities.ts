@@ -5,7 +5,6 @@
  * @param object the locale translation data
  * @param output a Map containing the dotnested keys
  * @param nestedKeys top-level key for the next recurse
- * @returns
  */
 export function extractDotnestedKeys(
   type: "keys" | "values" | null,
@@ -21,7 +20,6 @@ export function extractDotnestedKeys(
       else output.push([key, val]);
     } else extractDotnestedKeys(type, val, output, key);
   }
-  console.log(new Map(output));
   return new Map(output);
 }
 
@@ -50,7 +48,7 @@ export function mergeDeep(target: Record<string, any>, ...sources: Record<string
         if (!target[key]) Object.assign(target, { [key]: "" });
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, { [key]: source[key] });
+        if (!target[key]) Object.assign(target, { [key]: "" });
       }
     }
   }

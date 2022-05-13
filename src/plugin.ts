@@ -8,6 +8,8 @@ const DEFAULT_LOCALE_FILEPATH = "public/locales";
 const DEFAULT_TRANSLATION_FILENAME = "translation.json";
 const DEFAULT_OUTDIR = "../..";
 const DEFAULT_OUTFILE = "output";
+const PLUGIN_PREFIX_COLOR = "\x1b[36m%s\x1b[0m";
+const PLUGIN_PREFIX = "[[i18NEXT-LOCALE-SYNC]]";
 
 interface i18nextLocaleSyncPluginOptions {
   masterLocale: string;
@@ -33,13 +35,17 @@ export class Plugin implements WebpackPluginInstance {
     this.verbose = props.verbose || false;
   }
 
+  log(text: string) {
+    if (this.verbose) console.log(PLUGIN_PREFIX_COLOR, `${PLUGIN_PREFIX}: ${text}`);
+  }
+
   apply(compiler: any) {
     compiler.hooks.emit.tap(PLUGIN_NAME, (compilation: any) => {
       if (!fs.existsSync(DEFAULT_LOCALE_FILEPATH)) {
         console.error(`Unable to find a valid directory at ${DEFAULT_LOCALE_FILEPATH}`);
         return;
       } else {
-        if (this.verbose) console.log("<<LOCALE_SYNC>> Starting translation sync...");
+        this.log("Starting translation sync");
         process.chdir(DEFAULT_LOCALE_FILEPATH);
         const cwd = process.cwd();
 
@@ -57,13 +63,13 @@ export class Plugin implements WebpackPluginInstance {
         // Merge and prune the subordinate locales against the master and write to file
         const masterLocaleTranslation = this.translations.get(this.masterLocaleKey);
         if (masterLocaleTranslation) {
-          const masterLocale = masterLocaleTranslation.data;
+          const masterLocaleData = masterLocaleTranslation.data;
           this.translations.forEach((subLocale, subLocaleKey) => {
             if (subLocaleKey !== this.masterLocaleKey) {
-              const mergedData = mergeDeep(subLocale.data, masterLocale);
-              const prunedData = pruneKeys(mergedData, masterLocale);
+              const mergedData = mergeDeep(subLocale.data, masterLocaleData);
+              const prunedData = pruneKeys(mergedData, masterLocaleData);
               fs.writeFileSync(subLocale.path, JSON.stringify(prunedData));
-              if (this.verbose) console.log(`<<LOCALE_SYNC>> ${subLocaleKey} updated`);
+              this.log(`${subLocaleKey} updated`);
             }
           });
         }
@@ -88,15 +94,16 @@ export class Plugin implements WebpackPluginInstance {
           // Write the CSV to default output location
           const csvLikeArray = Array.from(zipMap, ([k, v]) => ({ ...{ k }, ...v }));
           process.chdir(this.outDir);
+
           stringify(csvLikeArray, { header: true, columns }, (err, out) => {
-            fs.writeFile(this.outFile, out, (err) => {
+            fs.writeFile(`${this.outFile}.csv`, out, (err) => {
               if (err) throw err;
-              else {
-                if (this.verbose) console.log(`<<LOCALE_SYNC>> Merged CSV generated`);
-              }
+              else this.log("Merged CSV produced");
             });
           });
         }
+
+        this.log("Sync completed");
       }
     });
   }

@@ -208,7 +208,6 @@ function _typeof(obj) {
  * @param object the locale translation data
  * @param output a Map containing the dotnested keys
  * @param nestedKeys top-level key for the next recurse
- * @returns
  */
 function extractDotnestedKeys(type, object) {
   var output = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -226,7 +225,6 @@ function extractDotnestedKeys(type, object) {
     } else extractDotnestedKeys(type, val, output, key);
   }
 
-  console.log(new Map(output));
   return new Map(output);
 }
 /**
@@ -259,7 +257,7 @@ function mergeDeep(target) {
         if (!target[key]) Object.assign(target, _defineProperty({}, key, ""));
         mergeDeep(target[key], source[key]);
       } else {
-        Object.assign(target, _defineProperty({}, key, source[key]));
+        if (!target[key]) Object.assign(target, _defineProperty({}, key, ""));
       }
     }
   }
@@ -294,6 +292,8 @@ var DEFAULT_LOCALE_FILEPATH = "public/locales";
 var DEFAULT_TRANSLATION_FILENAME = "translation.json";
 var DEFAULT_OUTDIR = "../..";
 var DEFAULT_OUTFILE = "output";
+var PLUGIN_PREFIX_COLOR = "\x1b[36m%s\x1b[0m";
+var PLUGIN_PREFIX = "[[i18NEXT-LOCALE-SYNC]]";
 var Plugin = /*#__PURE__*/function () {
   function Plugin(props) {
     _classCallCheck(this, Plugin);
@@ -304,9 +304,15 @@ var Plugin = /*#__PURE__*/function () {
     this.produceCSV = props.produceCSV || false;
     this.outDir = props.outDir || DEFAULT_OUTDIR;
     this.outFile = props.outFile || DEFAULT_OUTFILE;
+    this.verbose = props.verbose || false;
   }
 
   _createClass(Plugin, [{
+    key: "log",
+    value: function log(text) {
+      if (this.verbose) console.log(PLUGIN_PREFIX_COLOR, "".concat(PLUGIN_PREFIX, ": ").concat(text));
+    }
+  }, {
     key: "apply",
     value: function apply(compiler) {
       var _this = this;
@@ -316,6 +322,8 @@ var Plugin = /*#__PURE__*/function () {
           console.error("Unable to find a valid directory at ".concat(DEFAULT_LOCALE_FILEPATH));
           return;
         } else {
+          _this.log("Starting translation sync");
+
           process.chdir(DEFAULT_LOCALE_FILEPATH);
           var cwd = process.cwd(); // Parse the JSON for each locale into memory
 
@@ -333,13 +341,15 @@ var Plugin = /*#__PURE__*/function () {
           var masterLocaleTranslation = _this.translations.get(_this.masterLocaleKey);
 
           if (masterLocaleTranslation) {
-            var masterLocale = masterLocaleTranslation.data;
+            var masterLocaleData = masterLocaleTranslation.data;
 
             _this.translations.forEach(function (subLocale, subLocaleKey) {
               if (subLocaleKey !== _this.masterLocaleKey) {
-                var mergedData = mergeDeep(subLocale.data, masterLocale);
-                var prunedData = pruneKeys(mergedData, masterLocale);
+                var mergedData = mergeDeep(subLocale.data, masterLocaleData);
+                var prunedData = pruneKeys(mergedData, masterLocaleData);
                 fs__default["default"].writeFileSync(subLocale.path, JSON.stringify(prunedData));
+
+                _this.log("".concat(subLocaleKey, " updated"));
               }
             });
           } // Produce a CSV of the merged locales and their shared dotnested keys
@@ -353,6 +363,7 @@ var Plugin = /*#__PURE__*/function () {
 
             _this.translations.forEach(function (locale, localeKey) {
               var dotnestedEntries = extractDotnestedKeys(null, locale.data);
+              console.log(dotnestedEntries);
               columns[localeKey] = localeKey;
 
               var _iterator = _createForOfIteratorHelper(dotnestedEntries.entries()),
@@ -392,11 +403,13 @@ var Plugin = /*#__PURE__*/function () {
               header: true,
               columns: columns
             }, function (err, out) {
-              fs__default["default"].writeFile(DEFAULT_OUTFILE, out, function (err) {
-                if (err) throw err;
+              fs__default["default"].writeFile("".concat(_this.outFile, ".csv"), out, function (err) {
+                if (err) throw err;else _this.log("Merged CSV produced");
               });
             });
           }
+
+          _this.log("Sync completed");
         }
       });
     }

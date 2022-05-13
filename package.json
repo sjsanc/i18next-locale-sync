@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "preconstruct build",
-    "release": "yarn build && npm publish"
+    "release": "yarn build && npm publish",
+    "test": "jest"
   },
   "keywords": [
     "i18next",
