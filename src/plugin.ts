@@ -14,6 +14,7 @@ interface i18nextLocaleSyncPluginOptions {
   produceCSV?: boolean;
   outDir?: string;
   outFile?: string;
+  verbose?: boolean;
 }
 
 export class Plugin implements WebpackPluginInstance {
@@ -22,12 +23,14 @@ export class Plugin implements WebpackPluginInstance {
   private produceCSV: boolean;
   private outDir: string;
   private outFile: string;
+  private verbose: boolean;
 
   constructor(props: i18nextLocaleSyncPluginOptions) {
     this.masterLocaleKey = props.masterLocale;
     this.produceCSV = props.produceCSV || false;
     this.outDir = props.outDir || DEFAULT_OUTDIR;
     this.outFile = props.outFile || DEFAULT_OUTFILE;
+    this.verbose = props.verbose || false;
   }
 
   apply(compiler: any) {
@@ -36,6 +39,7 @@ export class Plugin implements WebpackPluginInstance {
         console.error(`Unable to find a valid directory at ${DEFAULT_LOCALE_FILEPATH}`);
         return;
       } else {
+        if (this.verbose) console.log("<<LOCALE_SYNC>> Starting translation sync...");
         process.chdir(DEFAULT_LOCALE_FILEPATH);
         const cwd = process.cwd();
 
@@ -59,6 +63,7 @@ export class Plugin implements WebpackPluginInstance {
               const mergedData = mergeDeep(subLocale.data, masterLocale);
               const prunedData = pruneKeys(mergedData, masterLocale);
               fs.writeFileSync(subLocale.path, JSON.stringify(prunedData));
+              if (this.verbose) console.log(`<<LOCALE_SYNC>> ${subLocaleKey} updated`);
             }
           });
         }
@@ -86,6 +91,9 @@ export class Plugin implements WebpackPluginInstance {
           stringify(csvLikeArray, { header: true, columns }, (err, out) => {
             fs.writeFile(DEFAULT_OUTFILE, out, (err) => {
               if (err) throw err;
+              else {
+                if (this.verbose) console.log(`<<LOCALE_SYNC>> Merged CSV generated`);
+              }
             });
           });
         }
