@@ -20,7 +20,7 @@ interface i18nextLocaleSyncPluginOptions {
 }
 
 export class Plugin implements WebpackPluginInstance {
-  private translations: Map<string, { path: string; data: Record<string, any> }> = new Map();
+  public translations: Map<string, { path: string; data: Record<string, any> }> = new Map();
   private masterLocaleKey: string;
   private produceCSV: boolean;
   private outDir: string;
@@ -68,7 +68,7 @@ export class Plugin implements WebpackPluginInstance {
             if (subLocaleKey !== this.masterLocaleKey) {
               const mergedData = mergeDeep(subLocale.data, masterLocaleData);
               const prunedData = pruneKeys(mergedData, masterLocaleData);
-              fs.writeFileSync(subLocale.path, JSON.stringify(prunedData));
+              fs.writeFileSync(subLocale.path, JSON.stringify(prunedData, null, "\t"));
               this.log(`${subLocaleKey} updated`);
             }
           });
@@ -92,7 +92,7 @@ export class Plugin implements WebpackPluginInstance {
           });
 
           // Write the CSV to default output location
-          const csvLikeArray = Array.from(zipMap, ([k, v]) => ({ ...{ k }, ...v }));
+          const csvLikeArray = Array.from(zipMap, ([key, v]) => ({ ...{ key }, ...v }));
           process.chdir(this.outDir);
 
           stringify(csvLikeArray, { header: true, columns }, (err, out) => {
