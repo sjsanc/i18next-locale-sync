@@ -34,7 +34,6 @@ test("[extractDotnestedKeys]: An object should be converted into a Map of dotnes
 
 test("[mergeDeep]: Should recursively merge the keys from a target into a source object, creating and providing an empty string for any missing keys", () => {
   const mergedDataset = mergeDeep(SUBORDINATE_DATASET, MASTER_DATASET);
-  console.log(mergedDataset);
   expect(mergedDataset).toEqual({
     test: "test",
     nest: {

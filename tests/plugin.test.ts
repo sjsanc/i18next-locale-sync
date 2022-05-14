@@ -1,6 +1,6 @@
 import { TempSandbox } from "temp-sandbox";
 import { Compiler, Configuration, Stats } from "webpack";
-const i18nextLocaleSyncPlugin = require("../src/plugin");
+import { Plugin } from "../src/plugin";
 
 type TestConfiguration = Omit<Configuration, "mode"> & {
   mode?: Configuration["mode"] | null;
@@ -18,10 +18,8 @@ const webpack = (options: TestConfiguration = {}): TestCompiler => {
       compiler.run((error: Error, stats: Stats) => {
         if (error || stats.hasErrors()) {
           reject(error);
-
           return;
         }
-
         resolve(stats);
       });
     });
@@ -31,16 +29,13 @@ const webpack = (options: TestConfiguration = {}): TestCompiler => {
 
 const sandbox = new TempSandbox({ randomDir: true });
 
-const entryFile = "src/index.js";
-const entryFileFull = sandbox.path.resolve(entryFile);
-
-const outputPath = "dist";
-const outputPathFull = sandbox.path.resolve(outputPath);
-
-const langOnePath = "public/locales/en/translation.json";
-const langTwoPath = "public/locales/es/translation.json";
-
-const csvOutputPath = "output.csv";
+const ENTRY_FILE = "src/index.js";
+const ENTRY_FILE_FULL = sandbox.path.resolve(ENTRY_FILE);
+const OUTPUT_PATH = "dist";
+const OUTPUT_PATH_FULL = sandbox.path.resolve(OUTPUT_PATH);
+const LANG_ONE_PATH = "public/locales/en/translation.json";
+const LANG_TWO_PATH = "public/locales/es/translation.json";
+const CSV_OUTPUT_PATH = "output.csv";
 
 let consoleSpy: any;
 const cwd = process.cwd();
@@ -63,58 +58,58 @@ const testTranslations = {
   },
 };
 
+const mergedCsv = `key,en,es
+test,test,test
+keyFromMaster,this should be empty,
+nested.nestedChild,,
+nested..specialKey,,`;
+
+const createSourceFolder = () => {
+  sandbox.createFileSync(ENTRY_FILE);
+  sandbox.createFileSync(LANG_ONE_PATH, testTranslations.langOne);
+  sandbox.createFileSync(LANG_TWO_PATH, testTranslations.langTwo);
+  sandbox.createDirSync("public/locales/.DS_Store/");
+};
+
+const getCompiler = (plugin: Plugin) =>
+  webpack({
+    entry: ENTRY_FILE_FULL,
+    output: { path: OUTPUT_PATH_FULL, filename: "bundle.js" },
+    plugins: [plugin],
+  });
+
 beforeEach(() => {
   process.chdir(sandbox.dir);
   consoleSpy = jest.spyOn(console, "warn").mockImplementation();
   sandbox.cleanSync();
+  createSourceFolder();
 });
+
 afterEach(() => {
   process.chdir(cwd);
   consoleSpy.mockReset();
 });
+
 afterAll(() => {
   sandbox.destroySandboxSync();
   process.chdir(cwd);
 });
 
-const createSourceFolder = () => {
-  sandbox.createFileSync(entryFile);
-  sandbox.createFileSync(langOnePath, testTranslations.langOne);
-  sandbox.createFileSync(langTwoPath, testTranslations.langTwo);
-  sandbox.createDirSync("public/locales/.DS_Store/");
-};
-
-test("Test that plugin initialises", async () => {
-  createSourceFolder();
-  const localeSyncPlugin = new i18nextLocaleSyncPlugin({ masterLocale: "en" });
-  expect(localeSyncPlugin.translations).toEqual(new Map());
+test("Test that the plugin initialises", async () => {
+  const plugin = new Plugin({ masterLocale: "en" });
+  expect(plugin.translations).toEqual(new Map());
 });
 
 test("Test that the plugin merges objects and removes keys not found on master", async () => {
-  createSourceFolder();
-
-  const localeSyncPlugin = new i18nextLocaleSyncPlugin({ masterLocale: "en" });
-  const compiler = webpack({
-    entry: entryFileFull,
-    output: { path: outputPathFull, filename: "bundle.js" },
-    plugins: [localeSyncPlugin],
-  });
-
+  const plugin = new Plugin({ masterLocale: "en" });
+  const compiler = getCompiler(plugin);
   await compiler.run();
-  expect(sandbox.readFileSync(langTwoPath)).toEqual(testTranslations.langTwoMerged);
+  expect(sandbox.readFileSync(LANG_TWO_PATH)).toEqual(testTranslations.langTwoMerged);
 });
 
 test("Test that plugin produces a CSV of all zipped translations", async () => {
-  createSourceFolder();
-
-  const localeSyncPlugin = new i18nextLocaleSyncPlugin({ masterLocale: "en", produceCSV: true });
-  const compiler = webpack({
-    entry: entryFileFull,
-    output: { path: outputPathFull, filename: "bundle.js" },
-    plugins: [localeSyncPlugin],
-  });
-
+  const plugin = new Plugin({ masterLocale: "en", produceCSV: true });
+  const compiler = getCompiler(plugin);
   await compiler.run();
-  console.log(sandbox.readFileSync(csvOutputPath));
-  expect(sandbox.readFileSync(csvOutputPath));
+  expect(sandbox.readFileSync(CSV_OUTPUT_PATH)).toEqual(mergedCsv);
 });
