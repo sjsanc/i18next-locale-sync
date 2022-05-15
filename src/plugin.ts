@@ -6,16 +6,16 @@ import { extractDotnestedKeys, mergeDeep, pruneKeys } from "./utilities";
 const PLUGIN_NAME = "i18nextWebpackLocaleSyncPlugin";
 const DEFAULT_LOCALE_FILEPATH = "public/locales";
 const DEFAULT_TRANSLATION_FILENAME = "translation.json";
-const DEFAULT_OUTDIR = "../..";
-const DEFAULT_OUTFILE = "output";
+const DEFAULT_CSV_OUTDIR = "../..";
+const DEFAULT_CSV_OUTFILE = "output";
 const PLUGIN_PREFIX_COLOR = "\x1b[36m%s\x1b[0m";
 const PLUGIN_PREFIX = "[[i18NEXT-LOCALE-SYNC]]";
 
-interface i18nextLocaleSyncPluginOptions {
+interface PluginOptions {
   masterLocale: string;
   produceCSV?: boolean;
-  outDir?: string;
-  outFile?: string;
+  csvOutDir?: string;
+  csvOutFile?: string;
   verbose?: boolean;
 }
 
@@ -23,15 +23,15 @@ export class Plugin implements WebpackPluginInstance {
   public translations: Map<string, { path: string; data: Record<string, any> }> = new Map();
   private masterLocaleKey: string;
   private produceCSV: boolean;
-  private outDir: string;
-  private outFile: string;
+  private csvOutDir: string;
+  private csvOutFile: string;
   private verbose: boolean;
 
-  constructor(props: i18nextLocaleSyncPluginOptions) {
+  constructor(props: PluginOptions) {
     this.masterLocaleKey = props.masterLocale;
     this.produceCSV = props.produceCSV || false;
-    this.outDir = props.outDir || DEFAULT_OUTDIR;
-    this.outFile = props.outFile || DEFAULT_OUTFILE;
+    this.csvOutDir = props.csvOutDir || DEFAULT_CSV_OUTDIR;
+    this.csvOutFile = props.csvOutFile || DEFAULT_CSV_OUTFILE;
     this.verbose = props.verbose || false;
   }
 
@@ -93,10 +93,10 @@ export class Plugin implements WebpackPluginInstance {
 
           // Write the CSV to default output location
           const csvLikeArray = Array.from(zipMap, ([key, v]) => ({ ...{ key }, ...v }));
-          process.chdir(this.outDir);
+          process.chdir(this.csvOutDir);
 
           stringify(csvLikeArray, { header: true, columns }, (err, out) => {
-            fs.writeFile(`${this.outFile}.csv`, out, (err) => {
+            fs.writeFile(`${this.csvOutFile}.csv`, out, (err) => {
               if (err) throw err;
               else this.log("Merged CSV produced");
             });
