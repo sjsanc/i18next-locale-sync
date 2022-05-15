@@ -5,7 +5,7 @@ Syncs i18next translations files against a master locale.
 ## Install
 
 ```console
-yarn add 18next-webpacl-locale-sync --dev
+yarn add 18next-webpack-locale-sync --dev
 ```
 
 **webpack.config.js**
@@ -16,7 +16,7 @@ import i18nextWebpackLocaleSync from "i18next-webpack-locale-sync"
 new i18nextWebpackLocaleSync({ masterLocale: 'en' }),
 ```
 
-The plugin expects your translation files to be in `/public/locales`
+The plugin expects your translation files to be in `/public/locales`. The master locale must match a folder name in this directory.
 
 ## Generating a CSV
 
